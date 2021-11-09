@@ -1,19 +1,22 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "https://dispex.org/api/vtest/Request/",
+    baseURL: "https://dispex.org/api/vtest/",
 });
 
 // api
 export const adressAPI = {
     fetchAllStreets() {
-        return instance.get(`streets`, {});
+        return instance.get(`Request/streets`, {});
     },
     fetchAllHouses(id) {
-        return instance.get(`houses/${id}`, {});
+        return instance.get(`Request/houses/${id}`, {});
     },
     fetchAllFlats(flatId) {
-        return instance.get(`house_flats/${flatId}`, {});
+        return instance.get(`Request/house_flats/${flatId}`, {});
+    },
+    createHousing(housing={}) {
+        return instance.post(`HousingStock/client`, housing);
     },
     // fetchMainCoins(arrCoin: Array<string>) {
     //     let stringFetch = ''

@@ -5,6 +5,7 @@ import {nanoid} from "nanoid";
 function App() {
 
     const [streets, setStreets] = useState([])
+    const [streetsForUser, setStreetsForUser] = useState('')
     const [houses, setHouses] = useState([])
     const [flats, setFlats] = useState([])
     const [streetsValue, setStreetsValue] = useState('')
@@ -15,6 +16,7 @@ function App() {
             adressAPI.fetchAllStreets()
                 .then(data => {
                     setStreets(data.data)
+                    // setStreetsForUser(data.data)
                 })
                 .catch((e) => {
                     console.log(e)
@@ -41,7 +43,39 @@ function App() {
     const onFlatSelect = (e) => {
         setFlatsValue(e.target.value)
     }
+    // "Id": 0,
+    //     "Name": "string",
+    //     "Phone": "string",
+    //     "Email": "string",
+    //     "BindId": 0
+    const [form, setForm] = useState({})
+    let userId = 0
 
+
+
+const onSubmit = async () => {
+
+    // const [firstResponse, secondResponse] = await Promise.all([
+    //     adressAPI.createHousing({...form, Id : nanoid(), BindId: nanoid()}),
+    //     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${this.props.p2}`)
+    // ]);
+
+     const data = await adressAPI.createHousing({...form, Id : nanoid(), BindId: nanoid()})
+    const userId = data.data.id
+    const dataStock = await adressAPI
+
+    const []
+        adressAPI.createHousing(form)
+        .then((data)=>{
+            userId = data.data.id
+            return
+        })
+        .then()
+}
+
+const onStreetForUserSelect = (e)=>{
+    setStreetsForUser(e.target.value)
+}
 
     return (
         <div>
@@ -91,30 +125,69 @@ function App() {
             </div>
 
             <form onSubmit={onSubmit}>
-                "Id": 0,
-                "Name": "string",
-                "Phone": "string",
-                "Email": "string",
-                "BindId": 0
+
 
                 <label>
                     Name:
-                    <input type="text" value={name} onChange={onNameInput} />
+                    <input type="text" value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} />
                 </label>
                 <label>
-                    Name:
-                    <input type="text" value={name} onChange={onNameInput} />
+                    Phone:
+                    <input type="text" value={form.phone} onChange={(e) => setForm({...form, phone: e.target.value})} />
                 </label>
                 <label>
-                    Name:
-                    <input type="text" value={name} onChange={onNameInput} />
+                    email:
+                    <input type="text" value={form.email} onChange={(e) => setForm({...form, email: e.target.value})} />
                 </label>
-                <label>
-                    Name:
-                    <input type="text" value={name} onChange={onNameInput} />
-                </label>
+
+                <div>
+                    <select
+                        onChange={onStreetForUserSelect} name="select">
+                        {streets.map(street => (
+                            <option
+                                data-street={street.name}
+                                key={street.id}
+                                value={street.id}
+                            >
+                                {street.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+
+                <div>
+                    <select onChange={onHouseForUserSelect} name="select">
+                        {houses.map(house => (
+                            <option
+                                key={house.id}
+                                value={house.id}
+                            >
+                                {house.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+
+                <div>
+                    <select onChange={onFlatForUserSelect} name="select">
+                        {flats.map(flat => (
+                            <option
+                                key={flat.id}
+                                value={flat.id}
+                            >
+                                {flat.flat}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <input type="submit" value="Отправить" />
             </form>
+
+
+
+
 
         </div>
     );
