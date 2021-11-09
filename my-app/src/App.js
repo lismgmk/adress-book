@@ -90,6 +90,32 @@ function App() {
                 </select>
             </div>
 
+            <form onSubmit={onSubmit}>
+                "Id": 0,
+                "Name": "string",
+                "Phone": "string",
+                "Email": "string",
+                "BindId": 0
+
+                <label>
+                    Name:
+                    <input type="text" value={name} onChange={onNameInput} />
+                </label>
+                <label>
+                    Name:
+                    <input type="text" value={name} onChange={onNameInput} />
+                </label>
+                <label>
+                    Name:
+                    <input type="text" value={name} onChange={onNameInput} />
+                </label>
+                <label>
+                    Name:
+                    <input type="text" value={name} onChange={onNameInput} />
+                </label>
+                <input type="submit" value="Отправить" />
+            </form>
+
         </div>
     );
 }
