@@ -1,43 +1,42 @@
-import React, {useEffect, useState} from 'react';
-import {Card, Grid} from "@mui/material";
+import React, {useCallback, useEffect, useState} from 'react';
+import {Autocomplete, Card, Grid, TextField} from "@mui/material";
 import SearchHousingItem from "./SearchHousingItem";
 import {adressAPI} from "../Api";
 
 const SearchHousingList = () => {
 
     const [streets, setStreets] = useState('')
-    const [streetsForUser, setStreetsForUser] = useState('')
     const [streetsOption, setStreetsOption] = useState([])
 
-    // const [houses, setHouses] = useState([])
-    // const [flats, setFlats] = useState([])
-    // const [streetsValue, setStreetsValue] = useState('')
-    // const [housesValue, setHousesValue] = useState('')
-    // const [flatsValue, setFlatsValue] = useState('')
-
-    const onStreetSelect = (event, newValue) => {
-        setStreetsForUser(newValue)
-        console.log(streetsForUser)
-
-    }
+    const [houses, setHouses] = useState('')
+    const [housesOption, setHousesOption] = useState([])
 
 
-        // (e) => {
-        //     console.log(e.target.dataset.street)
-        //     setStreetsValue(e.target.value)
-        //     adressAPI.fetchAllHouses(e.target.value)
-        //         .then(data => {
-        //             setHouses(data.data)
-        //         })
-        //     setFlats([])
-        // }
+    const onStreetValue = useCallback(
+        (event, newValue) => {
+            if( newValue !== null){
+                setStreets(newValue.id)
+                adressAPI.fetchAllHouses(newValue.id)
+                    .then(data => {
+                        setHousesOption(data.data)
+                    })
+            }
+
+            setHouses('')
+        }, []
+    )
+
+    const onHouseValue = useCallback(
+        (event, newValue) => {
+            setHouses(newValue.id)
+            console.log(newValue)
+        }, []
+    )
 
     useEffect(() => {
             adressAPI.fetchAllStreets()
                 .then(data => {
                     setStreetsOption(data.data)
-                    console.log(data.data)
-                    // setStreets(data.data[0].id)
                 })
                 .catch((e) => {
                     console.log(e)
@@ -45,17 +44,22 @@ const SearchHousingList = () => {
         }, []
     )
 
+
     return (
-        <Card>
-            <Grid container>
+        <Card sx={{p: '40px'}}>
+            <Grid spacing={2} container>
                 <Grid item>
                     <SearchHousingItem
                         label='Street'
-                        value={streets}
-                        setValue={onStreetSelect}
-                        // inputValue={streetsForUser}
-                        // setInputValue={onStreetSelect}
+                        setValue={onStreetValue}
                         option={streetsOption}
+                    />
+                </Grid>
+                <Grid item>
+                    <SearchHousingItem
+                        label='House'
+                        setValue={onHouseValue}
+                        option={housesOption}
                     />
                 </Grid>
             </Grid>
