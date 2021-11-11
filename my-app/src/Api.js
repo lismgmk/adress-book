@@ -15,6 +15,13 @@ export const adressAPI = {
     fetchAllFlats(flatId) {
         return instance.get(`Request/house_flats/${flatId}`, {});
     },
+    fetchAdressId(param) {
+      return instance.get( `HousingStock?streetId=${param}`, {}) //&houseId=853
+    },
+    fetchUsers(adressId) {
+        return instance.get(`HousingStock/clients?addressId=${adressId}`, {});
+    },
+
     createHousing(housing={}) {
         return instance.post(`HousingStock/client`, housing);
     },
