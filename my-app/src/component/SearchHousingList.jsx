@@ -68,8 +68,9 @@ const SearchHousingList = () => {
         (event, newInputValue) => {
             setStreetsInput(newInputValue);
             console.log(newInputValue)
-            setStreetsOptionId(event.target.dataset.key)
-            // debugger
+            if(event !== null) {
+                setStreetsOptionId(event.target.dataset.key)
+            }
             setHousesInput('')
             setFlatsInput('')
             setHousesOption([])

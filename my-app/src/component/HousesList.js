@@ -10,30 +10,31 @@ const HousesList = (props) => {
 
     let clients = []
     let currentHouses = () => {
-        houses.forEach(i =>{
+        houses.forEach(i => {
             if (i.clients.length > 0) {
-                return  clients.concat(i.clients)
+                return clients.concat(i.clients)
             }
         })
     }
 
-    useEffect(()=>{
-        adressAPI.fetchAdressId(street)
+    useEffect(() => {
+        if (street !== null) {
+            adressAPI.fetchAdressId(street)
                 .then(data => {
                     setHouses(data.data)
                 })
-            .then(data => currentHouses())
+                .then(data => currentHouses())
+        }
 
-    }, [street])
-    console.log(street)
+    }, [])
     return (
         <Grid container>
             {
                 clients.map((client) => {
-                        return <Houser
-                            phone={client.phone}
-                            name={client.name}
-                        />
+                    return <Houser
+                        phone={client.phone}
+                        name={client.name}
+                    />
                 })
             }
         </Grid>

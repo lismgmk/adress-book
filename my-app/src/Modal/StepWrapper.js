@@ -3,7 +3,7 @@ import {Box, Button, Card, Container, Grid, Step, StepLabel, Stepper} from "@mui
 
 
 
-const steps = ['Enter your Name', 'Enter Title', 'Enter Text']
+const steps = ['Введите данные пользователя', 'Выберите адрес', 'Привяхка к пользователя']
 
 const StepWrapper = ({activeStep, children}) => {
 

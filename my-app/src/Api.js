@@ -18,8 +18,8 @@ export const adressAPI = {
     fetchAdressId(param) {
       return instance.get( `HousingStock?streetId=${param}`, {}) //&houseId=853
     },
-    fetchUsers(adressId) {
-        return instance.get(`HousingStock/clients?addressId=${adressId}`, {});
+    fetchHosingStock() {
+        return instance.get(`HousingStock?companyId=1`, {});
     },
 
     createHousing(housing={}) {
