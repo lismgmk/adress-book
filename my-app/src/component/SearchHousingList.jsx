@@ -94,10 +94,8 @@ const SearchHousingList = () => {
 
     const onFlatInput = useCallback(
         (event, newInputValue) => {
-            // debugger
             if(event === null){
                 setFlatsInput('')
-                // setFlatsOption([])
             } else{
                 setFlatsInput(newInputValue)
             }

@@ -1,18 +1,14 @@
 import React, {useState} from "react";
 
 
-export const useInput = (inputValue, optionValue) => {
+export const useInput = (initialValue) => {
+    const [value, setValue] = useState(initialValue)
 
-    const [streetsInput, setStreetsInput] = useState(inputValue)
-    const [streetsOption, setStreetsOption] = useState(optionValue)
+    const onChange = (e) => {
+        setValue(e.target.value)
+    }
 
-    // const [value, setValue] = useState(initialValue)
-    //
-    // const onChange = (e) => {
-    //     setValue(e.target.value)
-    // }
-    //
-    // return {
-    //     value, onChange
-    // }
+    return {
+        value, onChange
+    }
 }

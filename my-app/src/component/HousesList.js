@@ -18,7 +18,6 @@ const HousesList = (props) => {
     }
 
     useEffect(()=>{
-        debugger
         adressAPI.fetchAdressId(street)
                 .then(data => {
                     setHouses(data.data)
